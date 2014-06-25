@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>MongoDB Guid to BinData</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="container">
+        <div class="starter-template">
+            <h1>Convert Guids to MongoDb BinData Objects</h1>
+            <div class="col-sm-6">
+                <br />
+                <p>This simple tool makes it easy to convert Guids in to theBinData objects that are
+                    used by MongoDb for find queries.</p>
+                <p>All you need to do is enter a guid, select the encoding and press convert.</p>
+                <p>To save time when creating queries you can add a the name of the field that contains
+                    the guid e.g. _id and a full query will be generated that you can just paste straight
+                    into tools like MongoVue or RoboMongo.</p>
+                <p>Have a play, enjoy!</p>
+            </div>
+            <form role="form" class="col-sm-6">
+            <div class="form-group">
+                <label for="guid">Guid</label>
+                <input type="guid" class="form-control" id="guid" placeholder="Enter Guid">
+            </div>
+            <div class="form-group">
+                <label for="encoding">Encoding</label>
+                <select class="form-control" id="encoding">
+                    <option value="default">Default Encoding</option>
+                    <option value="dotnet">.Net Encoding</option>
+                    <option value="python">Python Encoding</option>
+                    <option value="java">Java Encoding</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="field">Field being Searched (optional)</label>
+                <input type="field" class="form-control" id="field" placeholder="Enter query field name">
+            </div>
+            <div class="form-group">
+                <label for="collection">Collection being Searched (optional)</label>
+                <input type="collection" class="form-control" id="collection" placeholder="Enter collection name">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-success" id="convert">Convert my Guid!</button>
+            </div>
+            <br />
+            <br />
+            <p class="bg-success" id="result" style="display: none; padding: 10px;"></p>
+            </form>
+        </div>
+    </div>
+    <!-- /.container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="GuidToBinData.js"></script>
+    <script type="text/javascript">
+        $(document).ready(
+        function () {
+            $("#convert").on("click", convertGuid);
+        });
+        function convertGuid() {
+            var data = GuidToBinData.Convert(
+                    $("#guid").val(),
+                    $("#encoding").val(),
+                    $("#field").val(),
+                    $("#collection").val()
+                    );
+            $("#result").html(data).fadeIn();
+        }
+    </script>
+</body>
+</html>
